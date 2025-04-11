@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#121212" />
+  <title>Television - Product Page</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Roboto', sans-serif; background: #212121; color: #fff; }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      background: 3px solid var(--gray);;
+    }
+
+    .image-gallery {
+      flex: 1 1 45%;
+    }
+    .main-image {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+    }
+    .thumbnails {
+      display: flex;
+      gap: 10px;
+      margin-top: 1rem;
+    }
+    .thumbnails img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border: 2px solid transparent;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    .thumbnails img:hover {
+      border-color: #007bff;
+    }
+
+    .product-info {
+      flex: 1 1 45%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .product-title { font-size: 2rem; font-weight: 700; margin-bottom: 1rem; }
+    .product-description { font-size: 1rem; margin-bottom: 1.5rem; line-height: 1.6; }
+    .product-price { font-size: 1.5rem; font-weight: bold; color: #d9534f; margin-bottom: 1.5rem; }
+
+    .options { display: flex; gap: 1rem; margin-bottom: 1.5rem; }
+    .option-group { display: flex; flex-direction: column; }
+    .option-group label { font-size: 0.9rem; margin-bottom: 0.5rem; }
+    .option-group select {
+      padding: 0.5rem;
+      font-size: 1rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .quantity-selector { width: 80px; }
+
+    .add-to-cart {
+      background-color: #000;
+      color: white;
+      padding: 1rem 2rem;
+      font-size: 1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .add-to-cart:hover { background-color: #333; }
+
+    .back-button {
+      margin-top: 1.5rem;
+      display: inline-block;
+      text-decoration: none;
+      color: #000;
+      font-size: 0.9rem;
+    }
+
+    /* Sticky Cart */
+    .sticky-cart {
+      position: fixed;
+      bottom: -100px;
+      left: 0;
+      right: 0;
+      background: #fff;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      transition: bottom 0.3s ease;
+      z-index: 999;
+    }
+
+    .sticky-cart.active { bottom: 0; }
+
+    .sticky-btn {
+      background: #000;
+      color: #fff;
+      border: none;
+      padding: 0.7rem 1.5rem;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    /* Reviews */
+    .reviews-section {
+      max-width: 800px;
+      margin: 3rem auto;
+      padding: 1rem 2rem;
+      background-color: #000;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    .reviews-section h2 {
+      margin-bottom: 1.5rem;
+      font-size: 1.6rem;
+      border-bottom: 1px solid #000;
+      padding-bottom: 0.5rem;
+    }
+    .review {
+      margin-bottom: 1.5rem;
+    }
+    .review-header {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .stars { color: #f1c40f; }
+
+    /* Related Products */
+    .related-products {
+      padding: 3rem 2rem;
+      background: #000;
+      text-align: center;
+    }
+
+    .related-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 1.5rem;
+    }
+
+    .related-card {
+      background: 3px solid var(--gray);;
+      padding: 1rem;
+      border-radius: 10px;
+      width: 180px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      transition: 0.3s;
+    }
+
+    .related-card img {
+      width: 100%;
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+    }
+
+    .related-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    @media (max-width: 768px) {
+      .container { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="image-gallery">
+      <img src="img/tv.jpg" alt="Television" class="main-image" id="mainImage" />
+      <div class="thumbnails">
+        <img src="img/tv.jpg" onclick="swapImage(this)" />
+        <img src="img/tv1.jpg" onclick="swapImage(this)" />
+        <img src="img/tv2.png" onclick="swapImage(this)" />
+      </div>
+    </div>
+
+    <div class="product-info">
+      <h1 class="product-title">Television</h1>
+      <p class="product-description">Transform your entertainment experience with [TV Model Name]. Featuring vibrant picture quality, immersive sound, and smart functionality, this TV is perfect for streaming, gaming, and watching your favorite shows. Sleek and modern, it’s designed to elevate your home viewing to a whole new level.</p>
+      <p class="product-price">$399.99</p>
+
+      <div class="options">
+        <div class="option-group">
+          <label for="color">Color</label>
+          <select id="color">
+            <option>Black</option>
+            <option>white</option>
+          </select>
+        </div>
+        <div class="option-group">
+          <label for="quantity">Quantity</label>
+          <select id="quantity" class="quantity-selector">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+          </select>
+        </div>
+      </div>
+
+      <button class="add-to-cart"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
+      <a href="index.html" class="back-button"><i class="fas fa-arrow-left"></i> Back to Homepage</a>
+    </div>
+  </div>
+
+  <div class="sticky-cart">
+    <span>$499.99</span>
+    <button class="sticky-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
+  </div>
+
+  <section class="reviews-section">
+    <h2>Customer Reviews</h2>
+    <div class="review">
+      <div class="review-header">
+        <strong>Jane D.</strong>
+        <div class="stars">⭐⭐⭐⭐⭐</div>
+      </div>
+<p>The 4K resolution is stunning—colors are vibrant and blacks are deep. Great for movies, sports, and gaming. Feels like a mini theater in my living room!</p>
+    </div>
+    <div class="review">
+      <div class="review-header">
+        <strong>Mark S.</strong>
+        <div class="stars">⭐⭐⭐⭐☆</div>
+      </div>
+<p>Setup was quick, and the smart features work smoothly. Sound is decent, but I paired it with a soundbar for a fuller experience. Definitely worth it!</p>
+</div>
+  </section>
+
+  <section class="related-products">
+    <h2>Related Products</h2>
+    <div class="related-grid">
+      <div class="related-card">
+        <a href="product7.html"><img src="img/tv.jpg" alt="TV"></a>
+        <p>TV</p>
+        <span>$499.99</span>
+      </div>
+      <div class="related-card">
+        <a href="product9.html"><img src="img/necklace.jpg" alt="necklace"></a>
+        <p>Necklace</p>
+        <span>$599.99</span>
+      </div>
+      <div class="related-card">
+        <a href="product10.html"><img src="img/bracelet.jpg" alt="bracelet"></a>
+        <p>Bracelet</p>
+        <span>$149.99</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Scripts -->
+  <script>
+    function swapImage(el) {
+      document.getElementById('mainImage').src = el.src;
+    }
+
+    window.addEventListener("scroll", function () {
+      const sticky = document.querySelector(".sticky-cart");
+      if (window.scrollY > 100) {
+        sticky.classList.add("active");
+      } else {
+        sticky.classList.remove("active");
+      }
+    });
+  </script>
+
+</body>
+</html>
